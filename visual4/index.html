@@ -117,7 +117,7 @@
 
   function animatedRender(){
     requestAnimationFrame(animatedRender);
-    //updateBlob(mesh.geometry);
+    updateBlob(mesh.geometry);
     //mesh.rotation.y += 0.02;
     renderer.render(scene,camera);
   }
@@ -125,7 +125,7 @@
   function onDocumentMouseMove(event){
     //mouseX = (event.clientX - window.innerWidth/2);
     //mouseX = mesh.rotation.y += 0.009;
-    updateBlob(mesh.geometry);
+    //updateBlob(mesh.geometry);
     //console.log(mouseX);
   }
 
