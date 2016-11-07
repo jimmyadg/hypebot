@@ -182,10 +182,12 @@
 
   function handleKeyDown(event){
     if (event.keyCode === 32) {
-      inf = true;
-    }
-
-    //updateBlob(mesh.geometry);
+      if(inf){
+        location.reload();
+      }else{
+        inf = true;
+      }
+    }    
   }
 
   function render() {
