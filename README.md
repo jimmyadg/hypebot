@@ -26,4 +26,4 @@ A hype visualization made with Three.js.
 ## Final
 <img src = 'https://github.com/jimmyadg/hypebot/blob/master/asset/img/img1.png' width = '1000'>
 
-[Visualization](https://jimmyadg.github.io/hypebot/)
+[Visualization](https://jimmyadg.github.io/hypebot/) (Press space to enter on a computer / Wait for 10 seconds on a mobile device)
