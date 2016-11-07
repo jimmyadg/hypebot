@@ -41,30 +41,6 @@
   <script src="js/TrackballControls.js"></script>
   <script src="asset/data.json"></script>
   <script>
-
-  var isMobile = {
-    Android: function() {
-      return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: function() {
-      return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: function() {
-      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
-    Opera: function() {
-      return navigator.userAgent.match(/Opera Mini/i);
-    },
-    Windows: function() {
-      return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
-    },
-    any: function() {
-      return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-    }
-  };
-
-
-
   var camera, controls, scene,geometry,vertices,renderer,mesh,material,sphereMaterial,sphereGeometry;
   var cross,
   speed = 8000,
@@ -79,6 +55,12 @@
   init();
   animate();
 
+  var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if (isMobile) {
+    setInterval(function(){
+      inf = true;
+    }, 10000);
+  }
 
   function sortFile(e){
     for(var i =0, n =e.length; i < n; i++){
@@ -87,9 +69,6 @@
       tweets[i] = [o.text];
     }
   }
-
-
-
 
   function updateBlob(geometry){
     var time = 0.001 *Date.now();
@@ -229,11 +208,6 @@
 
     function animate() {
       requestAnimationFrame( animate );
-
-      if( isMobile.any()) setInterval(function(){inf = true;}, 10000);
-
-
-
       if(inf){
         sphereMaterial.visible = true;
         //updateBlob(mesh.geometry);
