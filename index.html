@@ -208,12 +208,9 @@
     function animate() {
       requestAnimationFrame( animate );
 
-      if( isMobile.any() ){
-        setInterval(function(){
+      if( isMobile.any()) setInterval(function(){inf = true;}, 10000);
 
-          inf = true;
-        }, 10000);
-      }
+
 
       if(inf){
         sphereMaterial.visible = true;
