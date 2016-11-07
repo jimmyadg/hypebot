@@ -8,19 +8,19 @@ A hype visualization made with Three.js.
 
 ## Process
 
-[First](https://jimmyadg.github.io/hypebot/visual)
+[First - organic form](https://jimmyadg.github.io/hypebot/visual)
 </br>
-[Second](https://jimmyadg.github.io/hypebot/visual2)
+[Second - disease spreading visualization](https://jimmyadg.github.io/hypebot/visual2)
 </br>
-[Third](https://jimmyadg.github.io/hypebot/visual3)
+[Third - loading STL file](https://jimmyadg.github.io/hypebot/visual3)
 </br>
-[Forth](https://jimmyadg.github.io/hypebot/visual4)
+[Forth - Applying organic form to the STL file](https://jimmyadg.github.io/hypebot/visual4)
 </br>
-[Fifth](https://jimmyadg.github.io/hypebot/visual5)
+[Fifth - Dancing AJ animation](https://jimmyadg.github.io/hypebot/visual5)
 </br>
-[Sixth](https://jimmyadg.github.io/hypebot/visual6)
+[Sixth - Getting retail / resell price](https://jimmyadg.github.io/hypebot/visual6)
 </br>
-[Seventh](https://jimmyadg.github.io/hypebot/visual7)
+[Seventh - applying disease map to the project](https://jimmyadg.github.io/hypebot/visual7)
 
 
 ## Final
