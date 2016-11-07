@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style>
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
+  canvas{
+    width:100%;
+    height: 100%;
+  }
+  </style>
+</head>
+<body>
+  <script src="../js/three.min.js"></script>
+  <script src="../js/ImprovedNoise.js"></script>
+  <script src = "../js/STLLoader.js"></script>
+  <script>
+
+  var mesh,material,container,bufferGeometry,loader,geometry,vertices,
+  noise = new ImprovedNoise(),
+  viewAngle = 75,
+  aspectRatio = window.innerWidth/window.innerHeight,
+  near = 0.1,
+  far =5000,
+  camera = new THREE.PerspectiveCamera(viewAngle, aspectRatio, near, far),
+  scene = new THREE.Scene(),
+  renderer = new THREE.WebGLRenderer(),
+  path = "../asset/aj1.stl";
+  //loader = new THREE.STLoader();
+  //window.addEventListener('load',init);
+
+  function updateBlob(geometry){
+    var time = 0.001 *Date.now();
+    var vertex , distance;
+    for(var j =0; j < geometry.vertices.length; j++){
+      vertex = geometry.vertices[j];
+      distance =20 + 3*noise.noise(
+        0.1*vertex.x + 0.1 * time,
+        0.1 *vertex.y +0.3 *time,
+        0.1*vertex.z+1.9*time
+
+        // 0.1*vertex.x + 0.1 * Math.cos(time),
+        // 0.1 *vertex.y +0.3 *Math.sin(time),
+        // 0.1*vertex.z+1.9*Math.cos(time)
+      );
+      vertex.normalize().multiplyScalar(distance);
+    }
+
+    geometry.computeVertexNormals();
+    geometry.computeFaceNormals();
+    geometry.verticesNeedUpdate = true;
+    geometry.normalsNeedUpdate = true;
+  }
+
+  function init(){
+    loader = new THREE.STLLoader();
+    document.addEventListener('mousemove', onDocumentMouseMove, false);
+    window.addEventListener('resize',onWindowResize,false);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    container = document.createElement( 'div' );
+    document.body.appendChild( container );
+    container.appendChild(renderer.domElement);
+
+    createObj(path);
+
+    camera.position.z = 40;
+    camera.position.y =10;
+    scene.add(camera);
+    animatedRender();
+  }
+
+
+  function createObj(path){
+    loader.load(path,function(obj){
+      obj.computeBoundingBox();
+      obj.computeVertexNormals();
+      obj.center();
+
+      var attrib = obj.getAttribute('position');
+      if(attrib === undefined){
+        throw new Error('a given BufferGeometry object must have a position attribute.');
+      }
+      var positions = attrib.array;
+      vertices = [];
+      for(var i = 0, n = positions.length; i <n; i +=3){
+        var x = positions[i];
+        var y = positions[i+1];
+        var z = positions[i+2];
+        vertices.push(new THREE.Vector3(x,y,z));
+      }
+      var faces = [];
+      for(var i = 0, n = vertices.length; i < n; i += 3) {
+        faces.push(new THREE.Face3(i, i + 1, i + 2));
+      }
+      geometry = new THREE.Geometry();
+      geometry.vertices = vertices;
+      geometry.faces = faces;
+      geometry.computeFaceNormals();
+      geometry.mergeVertices();
+      geometry.computeVertexNormals();
+
+      material = new THREE.MeshNormalMaterial({
+        shading: THREE.FlatShading,
+        //map: new THREE.TextureLoader().load("./asset/00028.png")
+        wireframe: false
+
+      });
+      mesh = new THREE.Mesh(geometry,material);
+      //mesh.rotation.x += -1;
+      scene.add(mesh);
+    });
+  }
+
+  function animatedRender(){
+    requestAnimationFrame(animatedRender);
+    //updateBlob(mesh.geometry);
+    //mesh.rotation.y += 0.02;
+    renderer.render(scene,camera);
+  }
+
+  function onDocumentMouseMove(event){
+    //mouseX = (event.clientX - window.innerWidth/2);
+    //mouseX = mesh.rotation.y += 0.009;
+    //updateBlob(mesh.geometry);
+    //console.log(mouseX);
+  }
+
+  function onWindowResize(){
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth,window.innerHeight);
+  }
+
+  init();
+  //render();
+
+  </script>
+</body>
+</html>
